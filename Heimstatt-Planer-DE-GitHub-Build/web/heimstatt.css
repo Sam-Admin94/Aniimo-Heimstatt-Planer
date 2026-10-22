@@ -1,0 +1,19 @@
+/* Heimstatt-Planer: warmes, responsives Redesign; Original-IDs und JS bleiben unverändert. */
+:root { --bg:#151c1a; --surface:#202b27; --surface-2:#2a3932; --text:#f6f2e8; --text-muted:#c3c9be; --border:#435349; --accent:#a5d6a7; --on-accent:#173326; --success:#a5d6a7; --warning:#e5bd74; --radius:20px; --font-body:ui-sans-serif,system-ui,"Segoe UI",sans-serif; }
+.light { --bg:#f4f3e9; --surface:#fffefa; --surface-2:#eef2e7; --text:#24382e; --text-muted:#66766c; --border:#d9e2d5; --accent:#367d60; --on-accent:#fff; --success:#367d60; }
+body { max-width:1200px; margin:0 auto; padding:30px clamp(14px,3.4vw,48px) 70px; background-image:radial-gradient(ellipse at 95% 0%,rgba(139,186,137,.14),transparent 42%); }
+header { align-items:center; padding:18px 24px; background:var(--surface); border:1px solid var(--border); border-radius:24px; box-shadow:0 12px 32px rgba(0,0,0,.07); gap:20px; flex-wrap:wrap; margin-bottom:14px; }
+header h1 { font-size:clamp(1.45rem,3vw,2.2rem); letter-spacing:-.045em; font-weight:800; }
+header h1::before {content:'✿';color:var(--accent);margin-right:12px}
+.subtitle {font-size:1.1rem; font-weight:650; margin:14px 4px 20px; color:var(--accent)}
+.disclaimer {border-radius:14px; padding:13px 18px; background:var(--surface-2); border:1px solid var(--border); margin-bottom:24px}
+.card {border-radius:22px; padding:clamp(18px,2.5vw,30px); box-shadow:0 8px 32px rgba(0,0,0,.045); margin-bottom:22px;}
+.card h2 {font-size:1.35rem;letter-spacing:-.02em; margin-bottom:18px}
+.card h3 {font-size:1.05rem}
+button, select, input, textarea {border-radius:12px; font-family:inherit}
+button {transition:transform .15s,box-shadow .15s,background .15s}
+button:hover:not(:disabled) {transform:translateY(-1px)}
+button:focus-visible,input:focus-visible,select:focus-visible {outline:3px solid var(--accent);outline-offset:3px}
+.tabs {background:var(--surface-2);padding:7px;border-radius:15px;gap:6px}
+.toggle-button {border-radius:12px}
+@media(max-width:720px) {body{padding:12px 12px 45px}header{padding:15px;align-items:flex-start}header .header-buttons{display:flex;flex-wrap:wrap;gap:7px} .card{padding:17px} .card-head{flex-wrap:wrap;gap:12px} .input-row,.fill-row{flex-wrap:wrap} }
