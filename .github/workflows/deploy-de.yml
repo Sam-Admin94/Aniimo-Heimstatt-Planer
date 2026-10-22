@@ -1,0 +1,45 @@
+name: Build and deploy Heimstatt-Planer
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: true
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32-unknown-unknown
+      - uses: Swatinem/rust-cache@v2
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install wasm-pack
+        run: cargo install wasm-pack --locked
+      - name: Build WebAssembly optimizer
+        run: wasm-pack build --target web --out-dir web/pkg
+      - name: Prepare site
+        run: |
+          touch web/.nojekyll
+          test -f web/pkg/aniimax.js
+          test -f web/pkg/aniimax_bg.wasm
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: web
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
