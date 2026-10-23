@@ -828,5 +828,22 @@
   "Provides Cool or Freeze growing conditions for crops that need one\nThe calculator picks whichever mode is more profitable.\nCovers a 9x9 area around itself; how many plots fit depends on what shares it.": "Schafft kühle oder frostige Wachstumsbedingungen für entsprechende Pflanzen.\nDer Rechner wählt den wirtschaftlichsten Modus.\nDeckt einen Bereich von 9 × 9 Feldern ab; die Anzahl der Anbauflächen hängt von der übrigen Belegung ab.",
   "Provides Adequate growing conditions for crops that need one\nCovers a 9x9 area around itself; how many plots fit depends on what shares it.": "Schafft geeignete Wachstumsbedingungen für entsprechende Pflanzen.\nDeckt einen Bereich von 9 × 9 Feldern ab; die Anzahl der Anbauflächen hängt von der übrigen Belegung ab.",
   "], names: [": "], names: [",
-  "|           ANIIMO PRODUCTION OPTIMIZATION RESULTS              |": "|           ERGEBNISSE DER ANIIMO-PRODUKTIONSOPTIMIERUNG           |"
+  "|           ANIIMO PRODUCTION OPTIMIZATION RESULTS              |": "|           ERGEBNISSE DER ANIIMO-PRODUKTIONSOPTIMIERUNG           |",
+  "Optimal": "Optimal",
+  "Energetic (E)": "Energiegeladen (E)",
+  "Judicious (J)": "Besonnen (J)",
+  "Nimble (N)": "Flink (N)",
+  "Playful (P)": "Verspielt (P)",
+  "Practical (S)": "Praktisch (S)",
+  "Tenacious (T)": "Hartnäckig (T)",
+  "Faithful (F)": "Treu (F)",
+  "Instinctive (I)": "Instinktiv (I)",
+  "Lv.1": "Stufe 1",
+  "Lv.2": "Stufe 2",
+  "Lv.3": "Stufe 3",
+  "Lv.4": "Stufe 4",
+  "Reclaiming crops": "Anbauflächen zurückgewinnen",
+  "Reclaiming land": "Land zurückgewinnen",
+  "Picking Jar": "Einmachglas",
+  "x": "×"
 }
