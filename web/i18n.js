@@ -64,6 +64,31 @@ export function translate(value) {
             return value.replace(trimmed, localized.join(' '));
         }
     }
+    // Zusammengesetzte Beschriftungen in der dynamischen Aniimo-Team-Tabelle:
+    // Gebäudename (Rezept), Fähigkeitsstufe und Persönlichkeitsmerkmale.
+    // Einzelne Wörter zu ersetzen wäre fehleranfällig (z. B. "Mine" in längeren Texten).
+    if (language === 'de') {
+        const direct = part => phrases[part.trim()] || part.trim();
+        let localized = trimmed;
+        // "Woodworking Bench (Laminated Beams)" -> "Schreinerwerkbank (Schichtholzbalken)"
+        localized = localized.replace(/([^(),]+)\s*\(([^()]*)\)/g, (whole, outer, inner) => {
+            const translatedOuter = direct(outer);
+            const translatedInner = inner.split(', ').map(direct).join(', ');
+            return translatedOuter + ' (' + translatedInner + ')';
+        });
+        // Lists of workplaces, possibly preceded by "7× ".
+        localized = localized.split(', ').map(part => {
+            const match = part.match(/^(\d+\s*[×x]\s*)?(.+)$/);
+            if (!match) return part;
+            const prefix = match[1] || '';
+            const body = match[2];
+            const bracket = body.match(/^(.+?)\s*\((.*)\)$/);
+            if (bracket) return prefix + direct(bracket[1]) + ' (' + direct(bracket[2]) + ')';
+            return prefix + direct(body);
+        }).join(', ');
+        localized = localized.replace(/\bLv\.(\d+)\b/g, 'Stufe $1');
+        if (localized !== trimmed) return value.replace(trimmed, localized);
+    }
     return value;
 }
 
