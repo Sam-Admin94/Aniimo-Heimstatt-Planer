@@ -64,6 +64,28 @@ export function translate(value) {
             return value.replace(trimmed, localized.join(' '));
         }
     }
+    // Tooltip-Texte der Gebäude bestehen oft aus mehreren Zeilen und enthalten
+    // dynamische Stufen, Gegenstände und Umweltbedingungen. Jede Zeile separat
+    // übersetzen, ohne Daten oder die englischen Originalbezeichnungen zu ändern.
+    if (language === 'de' && trimmed.includes('\\n')) {
+        const parts = trimmed.split('\\n');
+        const localized = parts.map(part => part === trimmed ? part : translate(part));
+        if (localized.some((part, i) => part !== parts[i])) {
+            return value.replace(trimmed, localized.join('\\n'));
+        }
+    }
+    if (language === 'de') {
+        const levelLine = trimmed.match(/^Lv\\.(\\d+):\\s*(.+)$/);
+        if (levelLine) {
+            const items = levelLine[2].split(/,\\s*/).map(part => translate(part)).join(', ');
+            return value.replace(trimmed, 'Stufe ' + levelLine[1] + ': ' + items);
+        }
+        const need = trimmed.match(/^(.+?)\\s*\\(needs\\s+(.+?)\\)$/);
+        if (need) {
+            const environment = translate(need[2]);
+            return value.replace(trimmed, translate(need[1]) + ' (benötigt ' + environment + ')');
+        }
+    }
     // Zusammengesetzte Beschriftungen in der dynamischen Aniimo-Team-Tabelle:
     // Gebäudename (Rezept), Fähigkeitsstufe und Persönlichkeitsmerkmale.
     // Einzelne Wörter zu ersetzen wäre fehleranfällig (z. B. "Mine" in längeren Texten).
