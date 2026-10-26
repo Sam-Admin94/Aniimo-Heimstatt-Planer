@@ -64,26 +64,23 @@ export function translate(value) {
             return value.replace(trimmed, localized.join(' '));
         }
     }
-    // Tooltip-Texte der Gebäude bestehen oft aus mehreren Zeilen und enthalten
-    // dynamische Stufen, Gegenstände und Umweltbedingungen. Jede Zeile separat
-    // übersetzen, ohne Daten oder die englischen Originalbezeichnungen zu ändern.
-    if (language === 'de' && trimmed.includes('\\n')) {
-        const parts = trimmed.split('\\n');
-        const localized = parts.map(part => part === trimmed ? part : translate(part));
+    // Mehrzeilige Gebäude-Tooltips: jede Zeile und jedes Rezept separat übersetzen.
+    if (language === 'de' && trimmed.includes('\n')) {
+        const parts = trimmed.split('\n');
+        const localized = parts.map(part => translate(part));
         if (localized.some((part, i) => part !== parts[i])) {
-            return value.replace(trimmed, localized.join('\\n'));
+            return value.replace(trimmed, localized.join('\n'));
         }
     }
     if (language === 'de') {
-        const levelLine = trimmed.match(/^Lv\\.(\\d+):\\s*(.+)$/);
+        const levelLine = trimmed.match(/^(?:Lv\.|Stufe\s*)(\d+):\s*(.+)$/);
         if (levelLine) {
-            const items = levelLine[2].split(/,\\s*/).map(part => translate(part)).join(', ');
+            const items = levelLine[2].split(/,\s*/).map(part => translate(part)).join(', ');
             return value.replace(trimmed, 'Stufe ' + levelLine[1] + ': ' + items);
         }
-        const need = trimmed.match(/^(.+?)\\s*\\(needs\\s+(.+?)\\)$/);
+        const need = trimmed.match(/^(.+?)\s*\(needs\s+(.+?)\)$/);
         if (need) {
-            const environment = translate(need[2]);
-            return value.replace(trimmed, translate(need[1]) + ' (benötigt ' + environment + ')');
+            return value.replace(trimmed, translate(need[1]) + ' (benötigt ' + translate(need[2]) + ')');
         }
     }
     // Zusammengesetzte Beschriftungen in der dynamischen Aniimo-Team-Tabelle:
