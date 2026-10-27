@@ -108,6 +108,18 @@ export function translate(value) {
         localized = localized.replace(/\bLv\.(\d+)\b/g, 'Stufe $1');
         if (localized !== trimmed) return value.replace(trimmed, localized);
     }
+    // Letzter Fallback für einzelne englische Wörter in dynamischen Tooltips.
+    // Nur vollständige Wörter ersetzen; längere Phrasen haben oben Vorrang.
+    if (language === 'de') {
+        const words = { needs: 'benötigt', need: 'benötigt', requires: 'erfordert' };
+        const localized = trimmed.replace(/\b(?:needs|need|requires)\b/gi, match => {
+            const replacement = words[match.toLowerCase()];
+            return match[0] === match[0].toUpperCase()
+                ? replacement[0].toUpperCase() + replacement.slice(1)
+                : replacement;
+        });
+        if (localized !== trimmed) return value.replace(trimmed, localized);
+    }
     return value;
 }
 
