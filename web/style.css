@@ -2877,3 +2877,7 @@ tr:hover .skip-row,
         animation: none;
     }
 }
+
+/* Abgelaufene Event-Rezepte bleiben als Referenz sichtbar. */
+.tag.ended { color: var(--text-muted); background: color-mix(in srgb, var(--text-muted) 14%, transparent); margin-left: 0.35rem; }
+.recipe-table tr.ended { color: var(--text-muted); }
