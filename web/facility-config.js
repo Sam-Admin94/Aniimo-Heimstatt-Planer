@@ -201,6 +201,8 @@ export const SEASON = {
     currency: 'Moonray Wheat',
     points: 'Harvest Moon Points',
     minHomeLevel: 10,
+    // Das Erntemondfest ist beendet; Daten bleiben zur Referenz erhalten.
+    over: true,
     // Recipes unlocked with Recipe Notes; plans only use the ones the player ticks. The season's
     // other recipes come unlocked.
     recipeNotes: [
